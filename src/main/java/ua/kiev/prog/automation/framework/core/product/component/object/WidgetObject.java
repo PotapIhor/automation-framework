@@ -1,8 +1,14 @@
 package ua.kiev.prog.automation.framework.core.product.component.object;
 
+
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.function.Function;
 
 /**
  * ////////////////////////////////////////////////////////// *
@@ -17,7 +23,6 @@ public class WidgetObject
 {
     private RemoteWebDriver _driver;
     private By              _locator;
-    private WebElement      _element;
 
     public WidgetObject (RemoteWebDriver driver, By locator)
     {
@@ -27,14 +32,24 @@ public class WidgetObject
 
     protected WebElement element ()
     {
-        if (_element == null)
-            _element = _driver.findElement(_locator);
-        return _element;
+        try {
+            WebDriverWait wait = new WebDriverWait(this._driver, 30);
+            wait.until(new Function<WebDriver, Object>() {
+                @Override
+                public Object apply(WebDriver webDriver) {
+                    return webDriver.findElements(_locator).size() > 0;
+                }
+            });
+        } catch (Throwable e) {
+            throw new RuntimeException("Element not found");
+        }
+        return this._driver.findElement(_locator);
     }
 
     public void click ()
     {
         this.element().click();
+        // Привет всем, ето новый страницы кода
     }
 
     public String getText ()
