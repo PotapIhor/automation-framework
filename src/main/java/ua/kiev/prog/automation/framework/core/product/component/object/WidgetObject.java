@@ -49,6 +49,8 @@ public class WidgetObject
     public void click ()
     {
         this.element().click();
+
+
         // Привет всем, ето новый страницы кода
     }
 

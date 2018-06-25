@@ -25,6 +25,7 @@ abstract public class PageObject<T extends PageObject>
      */
     private Component _component;
 
+
     /**
      * Конструктор объекта
      */
