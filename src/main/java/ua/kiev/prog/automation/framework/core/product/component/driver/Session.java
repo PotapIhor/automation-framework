@@ -46,6 +46,7 @@ public class Session
                 this._driver = new RemoteWebDriver(new URL("http://localhost:4545/wd/hub"), cap);
             } catch (Throwable e) {
                 throw new RuntimeException(e);
+
             }
         }
         return this._driver;
